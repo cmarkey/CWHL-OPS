@@ -22,10 +22,11 @@ league_points_p_goal = CWHL_Team_Stats_lgpg %>%
 CWHL_Team_Stats_lppg <- merge(CWHL_Team_Stats_lgpg,league_points_p_goal, by = "Season") 
 
 #Expected Points
-CWHL_Team_Stats_lppg$EP <- CWHL_Team_Stats_lppg$lppg*(CWHL_Team_Stats_lppg$MGF + CWHL_Team_Stats_lppg$MGA)
+CWHL_Team_Stats_lppg$Expected_Pts <- CWHL_Team_Stats_lppg$lppg*(CWHL_Team_Stats_lppg$MGF + CWHL_Team_Stats_lppg$MGA)
 
 ## Writing Team stats to csv
-write.csv(CWHL_Team_Stats_lppg, "C:/Users/carli/Documents/Hockey Research/WHockey Research/CWHL OPS/CWHL_Team_Stats.csv", row.names = FALSE) 
+CWHL_Team_Stats_final = subset(CWHL_Team_Stats_lppg, select = -c(lgpg, lppg))
+write.csv(CWHL_Team_Stats_final, "C:/Users/carli/Documents/Hockey Research/WHockey Research/CWHL OPS/CWHL_Team_Stats.csv", row.names = FALSE) 
 
 ##Player level Offensive Point Shares
 CWHL_Reg_Player_Stats_2 <- left_join(CWHL_Reg_Player_Stats, CWHL_Team_Stats_lppg, by = c("Season" = "Season", "Team ID" = "Team ID"))

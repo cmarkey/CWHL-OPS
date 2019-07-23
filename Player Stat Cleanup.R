@@ -65,6 +65,7 @@ CWHL_Team_Stats$GP[(CWHL_Team_Stats$Season == "2011-12") & (CWHL_Team_Stats$'Tea
 CWHL_Team_Stats$GP[(CWHL_Team_Stats$Season == "2012-13") | (CWHL_Team_Stats$Season == "2013-14") | (CWHL_Team_Stats$Season == "2014-15") | (CWHL_Team_Stats$Season == "2015-16") | (CWHL_Team_Stats$Season == "2016-17")] = 30
 CWHL_Team_Stats$GP[(CWHL_Team_Stats$Season == "2013-14") & (CWHL_Team_Stats$'Team ID' == "Montréal Stars") ] = 23
 CWHL_Team_Stats$GP[(CWHL_Team_Stats$Season == "2013-14") & (CWHL_Team_Stats$'Team ID' == "Toronto Furies") ] = 23
+CWHL_Team_Stats$GP[(CWHL_Team_Stats$Season == "2014-15") | (CWHL_Team_Stats$Season == "2015-16") | (CWHL_Team_Stats$Season == "2016-17")] = 24
 CWHL_Team_Stats$GP[(CWHL_Team_Stats$Season == "2017-18") | (CWHL_Team_Stats$Season == "2018-19")] = 28
 
 #W-L-OTL record corrections - Who's Who in Women's Hockey
@@ -81,6 +82,7 @@ CWHL_Team_Stats$W[CWHL_Team_Stats$`Team ID` == "Burlington Barracudas" & CWHL_Te
 CWHL_Team_Stats$W[CWHL_Team_Stats$`Team ID` == "Montréal Stars" & CWHL_Team_Stats$Season == "2012-13"] = 18
 CWHL_Team_Stats$W[CWHL_Team_Stats$`Team ID` == "Montréal Stars" & CWHL_Team_Stats$Season == "2014-15"] = 14
 CWHL_Team_Stats$W[CWHL_Team_Stats$`Team ID` == "Calgary Inferno" & CWHL_Team_Stats$Season == "2018-19"] = 23
+CWHL_Team_Stats$L[CWHL_Team_Stats$`Team ID` == "Montréal Canadiennes" & CWHL_Team_Stats$Season == "2015-16"] = 5
 
 CWHL_Team_Stats$L[CWHL_Team_Stats$`Team ID` == "Brampton Thunder" & CWHL_Team_Stats$Season == "2007-08"] = 7
 CWHL_Team_Stats$L[CWHL_Team_Stats$`Team ID` == "Mississauga Chiefs" & CWHL_Team_Stats$Season == "2007-08"] = 8
@@ -142,3 +144,8 @@ CWHL_Team_Stats$OTL <- CWHL_Team_Stats$GP - (CWHL_Team_Stats$W + CWHL_Team_Stats
 
 #Team Point Calculation
 CWHL_Team_Stats$Points <- 2*CWHL_Team_Stats$W+1*CWHL_Team_Stats$OTL
+
+CWHL_Team_Stats$GA[CWHL_Team_Stats$`Team ID` == "Vaughan Flames" & CWHL_Team_Stats$Season == "2009-10"] = 115
+CWHL_Team_Stats$GA[CWHL_Team_Stats$`Team ID` == "Montréal Stars" & CWHL_Team_Stats$Season == "2009-10"] = 70
+CWHL_Team_Stats$GA[CWHL_Team_Stats$`Team ID` == "Brampton Thunder" & CWHL_Team_Stats$Season == "2009-10"] = 82
+
