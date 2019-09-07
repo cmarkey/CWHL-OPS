@@ -52,12 +52,12 @@ mg_p_p = CWHL_Team_Stats_lppg %>%
   summarize(mg_p_p = sum(G)/sum(Points))
 
 #OPS for skaters
-CWHL_Reg_Player_Stats_5 <- merge(CWHL_Reg_Player_Stats_4, mg_p_p,  by = "Season")
+CWHL_Reg_Player_Stats_OPS <- merge(CWHL_Reg_Player_Stats_4, mg_p_p,  by = "Season")
 
-CWHL_Reg_Player_Stats_5$OPS <- CWHL_Reg_Player_Stats_5$iMGF/CWHL_Reg_Player_Stats_5$mg_p_p
+CWHL_Reg_Player_Stats_OPS$OPS <- CWHL_Reg_Player_Stats_OPS$iMGF/CWHL_Reg_Player_Stats_OPS$mg_p_p
 
 ## Writing to csv file
-Player_Stats_CWHL = subset(CWHL_Reg_Player_Stats_5, select = c(Season, 'Team ID', 'Player ID', OPS))
-write.csv(Player_Stats_CWHL, )
+Player_Stats_CWHL = subset(CWHL_Reg_Player_Stats_OPS, select = c(Season, 'Team ID', 'Player ID', Age, OPS))
+write.csv(Player_Stats_CWHL, file = "CWHL_Reg_Season_Player_Stats.csv")
 
 ## Player level Goalie Point Shares

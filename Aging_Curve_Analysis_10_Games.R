@@ -23,12 +23,15 @@ require(ggplot2)
 #  theme(plot.title = element_text(hjust = 0.5))
 
 #all players who played more than one game
-ops = CWHL_Reg_Player_Stats_OPS %>%
-  filter(GP.x >= 1)
+ops_change = CWHL_Reg_Player_Stats_OPS %>%
+  filter(GP.x >= 10)
 
 ops_change$Age <- floor(ops_change$Age)
 
 #bucketing
+ops_15 <- ops_change %>%
+  filter(Age == 15)
+ops_17 <- ops_change 
 ops_16 <- ops_change %>%
   filter(Age == 16)
 ops_17 <- ops_change %>%
@@ -79,7 +82,11 @@ ops_39 <- ops_change %>%
   filter(Age == 39)
 ops_40 <- ops_change %>%
   filter(Age == 40)
+ops_41 <- ops_change %>%
+  filter(Age == 41)
 
+ops_1516 <- inner_join(ops_15,ops_16, by = "Player ID")
+ops_1516$deltaOPS <- ops_1516$OPS.y-ops_1516$OPS.x #second year minus 1st year
 ops_1617 <- inner_join(ops_16,ops_17, by = "Player ID")
 ops_1617$deltaOPS <- ops_1617$OPS.y-ops_1617$OPS.x #second year minus 1st year
 ops_1718 <- inner_join(ops_17,ops_18, by = "Player ID")
@@ -128,3 +135,67 @@ ops_3839 <- inner_join(ops_38,ops_39, by = "Player ID")
 ops_3839$deltaOPS <- ops_3839$OPS.y-ops_3839$OPS.x #second year minus 3st year
 ops_3940 <- inner_join(ops_39,ops_40, by = "Player ID")
 ops_3940$deltaOPS <- ops_3940$OPS.y-ops_3940$OPS.x #second year minus 2st year
+ops_4041 <- inner_join(ops_40,ops_41, by = "Player ID")
+ops_4041$deltaOPS <- ops_4041$OPS.y-ops_4041$OPS.x #second year minus 2st year
+
+avg_delta_1516 =  sum(ops_1516$deltaOPS)/nrow(ops_1516)
+avg_delta_1617 =  sum(ops_1617$deltaOPS)/nrow(ops_1617)
+avg_delta_1718 =  sum(ops_1718$deltaOPS)/nrow(ops_1718)
+avg_delta_1819 =  sum(ops_1819$deltaOPS)/nrow(ops_1819)
+avg_delta_1920 =  sum(ops_1920$deltaOPS)/nrow(ops_1920)
+avg_delta_2021 =  sum(ops_2021$deltaOPS)/nrow(ops_2021)
+avg_delta_2122 =  sum(ops_2122$deltaOPS)/nrow(ops_2122)
+avg_delta_2223 =  sum(ops_2223$deltaOPS)/nrow(ops_2223)
+avg_delta_2324 =  sum(ops_2324$deltaOPS)/nrow(ops_2324)
+avg_delta_2425 =  sum(ops_2425$deltaOPS)/nrow(ops_2425)
+avg_delta_2526 =  sum(ops_2526$deltaOPS)/nrow(ops_2526)
+avg_delta_2627 =  sum(ops_2627$deltaOPS)/nrow(ops_2627)
+avg_delta_2728 =  sum(ops_2728$deltaOPS)/nrow(ops_2728)
+avg_delta_2829 =  sum(ops_2829$deltaOPS)/nrow(ops_2829)
+avg_delta_2930 =  sum(ops_2930$deltaOPS)/nrow(ops_2930)
+avg_delta_3031 =  sum(ops_3031$deltaOPS)/nrow(ops_3031)
+avg_delta_3132 =  sum(ops_3132$deltaOPS)/nrow(ops_3132)
+avg_delta_3233 =  sum(ops_3233$deltaOPS)/nrow(ops_3233)
+avg_delta_3334 =  sum(ops_3334$deltaOPS)/nrow(ops_3334)
+avg_delta_3435 =  sum(ops_3435$deltaOPS)/nrow(ops_3435)
+avg_delta_3536 =  sum(ops_3536$deltaOPS)/nrow(ops_3536)
+avg_delta_3637 =  sum(ops_3637$deltaOPS)/nrow(ops_3637)
+avg_delta_3738 =  sum(ops_3738$deltaOPS)/nrow(ops_3738)
+avg_delta_3839 =  sum(ops_3839$deltaOPS)/nrow(ops_3839)
+avg_delta_3940 =  sum(ops_3940$deltaOPS)/nrow(ops_3940)
+avg_delta_4041 =  sum(ops_4041$deltaOPS)/nrow(ops_4041)
+
+avg_delta_10 <- data.frame("Age_Bucket" = c("19/20", "20/21", "21/22", "22/23", 
+                                         "23/24", "24/25", "25/26", "26/27", "27/28", "28/29", "29/30", "30/31", 
+                                         "31/32", "32/33", "33/34", "34/35", "35/36", "36/37", "37/38"), 
+                        "Total_Players" = c(nrow(ops_1920), nrow(ops_2021), 
+                                            nrow(ops_2122), nrow(ops_2223), 
+                                            nrow(ops_2324), nrow(ops_2425),
+                                            nrow(ops_2526), nrow(ops_2627),
+                                            nrow(ops_2728), nrow(ops_2829),
+                                            nrow(ops_2930), nrow(ops_3031),
+                                            nrow(ops_3132), nrow(ops_3233),
+                                            nrow(ops_3334), nrow(ops_3435),
+                                            nrow(ops_3536), nrow(ops_3637),
+                                            nrow(ops_3738)), 
+                        "Avg_Delta_OPS" = c(avg_delta_1920, avg_delta_2021,
+                                            avg_delta_2122, avg_delta_2223,
+                                            avg_delta_2324, avg_delta_2425,
+                                            avg_delta_2526, avg_delta_2627,
+                                            avg_delta_2728, avg_delta_2829,
+                                            avg_delta_2930, avg_delta_3031,
+                                            avg_delta_3132, avg_delta_3233,
+                                            avg_delta_3334, avg_delta_3435,
+                                            avg_delta_3536, avg_delta_3637,
+                                            avg_delta_3738))
+
+
+avg_delta$Cumulative_Change <- cumsum(na.omit(avg_delta$Avg_Delta_OPS))
+avg_delta$Cumulative_Change <- avg_delta$Cumulative_Change - max(na.omit(avg_delta$Cumulative_Change))
+
+ggplot(data = avg_delta, aes(x = Age_Bucket, y = Cumulative_Change, group =1))+
+  geom_line(size = 3, color = "#297d53") +
+  geom_point(size = 5, color = "#297d53") +
+  labs(title = "Aging Curve - 10 Games", y = "Offensive Point Shares", x = "Age Bucket")+
+  theme_light()+
+  theme(plot.title = element_text(hjust = .5, size = 36), axis.title = element_text(hjust = 0.5, size = 30), axis.text = element_text(size = 12))
