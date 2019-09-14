@@ -202,4 +202,4 @@ b <- ggplot(data = avg_delta_5, aes(x = Age_Bucket, y = Cumulative_Change, group
   labs(title = "Aging Curve - 5 Games", y = "Offensive Point Shares", x = "Age Bucket")+
   theme_light()+
   theme(plot.title = element_text(hjust = .5, size = 36), axis.title = element_text(hjust = 0.5, size = 30), axis.text = element_text(size = 12))
-
+show(b)

@@ -190,10 +190,10 @@ avg_delta_10 <- data.frame("Age_Bucket" = c("19/20", "20/21", "21/22", "22/23",
                                             avg_delta_3738))
 
 
-avg_delta$Cumulative_Change <- cumsum(na.omit(avg_delta$Avg_Delta_OPS))
-avg_delta$Cumulative_Change <- avg_delta$Cumulative_Change - max(na.omit(avg_delta$Cumulative_Change))
+avg_delta_10$Cumulative_Change <- cumsum(na.omit(avg_delta_10$Avg_Delta_OPS))
+avg_delta_10$Cumulative_Change <- avg_delta_10$Cumulative_Change - max(na.omit(avg_delta_10$Cumulative_Change))
 
-ggplot(data = avg_delta, aes(x = Age_Bucket, y = Cumulative_Change, group =1))+
+ggplot(data = avg_delta_10, aes(x = Age_Bucket, y = Cumulative_Change, group =1))+
   geom_line(size = 3, color = "#297d53") +
   geom_point(size = 5, color = "#297d53") +
   labs(title = "Aging Curve - 10 Games", y = "Offensive Point Shares", x = "Age Bucket")+

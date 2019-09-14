@@ -57,7 +57,8 @@ CWHL_Reg_Player_Stats_OPS <- merge(CWHL_Reg_Player_Stats_4, mg_p_p,  by = "Seaso
 CWHL_Reg_Player_Stats_OPS$OPS <- CWHL_Reg_Player_Stats_OPS$iMGF/CWHL_Reg_Player_Stats_OPS$mg_p_p
 
 ## Writing to csv file
-Player_Stats_CWHL = subset(CWHL_Reg_Player_Stats_OPS, select = c(Season, 'Team ID', 'Player ID', Age, OPS))
+Player_Stats_CWHL <- CWHL_Reg_Player_Stats_OPS %>%
+  select("Season", "Team ID", "Player ID", "Age", "OPS")
 write.csv(Player_Stats_CWHL, file = "CWHL_Reg_Season_Player_Stats.csv")
 
 ## Player level Goalie Point Shares
